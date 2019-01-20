@@ -1,17 +1,34 @@
 import React from 'react'
-import { Link } from 'gatsby'
-import styled from 'styled-components'
-import { width } from 'styled-system'
+import { Link as GatsbyLink } from 'gatsby'
+import { Flex, Link } from 'rebass'
 
-const NavWrapper = styled.nav`
-  ${width}
-`
+const links = [
+  {
+    title: 'Home',
+    to: '/',
+  },
+  {
+    title: 'Recipes',
+    to: '/recipes',
+  },
+  {
+    title: 'Search',
+    to: '/search',
+  },
+  {
+    title: 'About',
+    to: '/about',
+  },
+]
 
 export default function Nav() {
   return (
-    <NavWrapper width={1}>
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-    </NavWrapper>
+    <Flex as="nav" width={1} my="2rem" justifyContent="center">
+      {links.map(({ title, to }) => (
+        <Link key={title} as={GatsbyLink} ml="1rem" to={to}>
+          {title}
+        </Link>
+      ))}
+    </Flex>
   )
 }

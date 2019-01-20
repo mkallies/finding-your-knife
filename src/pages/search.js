@@ -2,14 +2,13 @@ import { Box, Heading } from 'rebass'
 import React from 'react'
 import Layout from '../components/Layout'
 
-function About() {
+function Search() {
   return (
     <Layout>
-      <Heading>About me</Heading>
-      <Box bg="blue">this is my box</Box>
-      <p>I love to cook!</p>
+      <Heading>Search</Heading>
+      <Box bg="rebeccapurple">Search here</Box>
     </Layout>
   )
 }
 
-export default About
+export default Search

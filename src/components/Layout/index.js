@@ -1,40 +1,55 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 import { ThemeProvider } from 'styled-components'
-import Header from '../Header'
+import { Box, Heading, Flex, Link } from 'rebass'
+import { Normalize } from 'styled-normalize'
 import Nav from '../Nav'
 import theme from '../../utils/theme'
-import GlobalStyle from '../../utils/injectGlobalStyles'
-import Flex from '../Flex'
+import { LayoutWrapper } from './styles'
 
 const Layout = ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
+  <ThemeProvider theme={theme}>
+    <LayoutWrapper as={Flex} flexDirection="column" alignItems="center" p={3}>
+      <Normalize />
+      <StaticQuery
+        query={graphql`
+          query SiteTitleQuery {
+            site {
+              siteMetadata {
+                title
+              }
+            }
           }
-        }
-      }
-    `}
-    render={() => (
-      <ThemeProvider theme={theme}>
-        <Flex p={2} flexWrap="wrap" justifyContent="center">
-          <GlobalStyle />
-          <Header>finding your knife.</Header>
-          <Nav />
-          {children}
-          <footer>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-          </footer>
-        </Flex>
-      </ThemeProvider>
-    )}
-  />
+        `}
+        render={data => (
+          <Helmet
+            titleTemplate={`%s | ${data.site.siteMetadata.title}`}
+            defaultTitle={data.site.siteMetadata.title}
+          >
+            <html lang={data.site.siteMetadata.language} />
+          </Helmet>
+        )}
+      />
+
+      <Heading fontWeight="bold">
+        finding <br />
+        your <br />
+        knife.
+      </Heading>
+
+      <Nav />
+
+      <Box as="main">{children}</Box>
+
+      <Box as="footer">
+        © {new Date().getFullYear()}, Built with
+        {` `}
+        <Link href="https://www.gatsbyjs.org">Gatsby</Link>
+      </Box>
+    </LayoutWrapper>
+  </ThemeProvider>
 )
 
 Layout.propTypes = {
