@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `find your knife.`,
-    description: `My food journey.`,
+    title: `finding your knife.`,
+    description: `A food journey.`,
     author: `Michael Kallies`,
   },
   plugins: [
@@ -17,7 +17,14 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
-        path: `${__dirname}/src/blog-posts`,
+        path: `${__dirname}/content`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `src`,
+        path: `${__dirname}/src/`,
       },
     },
     `gatsby-transformer-sharp`,
