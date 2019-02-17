@@ -1,23 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { StaticQuery } from 'gatsby'
-import { detailsQuery } from './queries'
+import { StaticQuery, graphql } from 'gatsby'
 
-function SEO({ description, lang, meta, keywords, title }) {
+function SEO({ description, meta, keywords, title }) {
+  console.log('seo')
   return (
     <StaticQuery
-      query={detailsQuery}
+      query={graphql`
+        query {
+          site {
+            siteMetadata {
+              title
+              description
+              author
+            }
+          }
+        }
+      `}
       render={data => {
+        console.log('data', data)
         const metaDescription =
           description || data.site.siteMetadata.description
         return (
           <Helmet
             htmlAttributes={{
-              lang,
+              lang: 'en-US',
             }}
             title={title}
             titleTemplate={`%s | ${data.site.siteMetadata.title}`}
+            link={[{ rel: 'canonical', href: 'findingyourknife.com' }]}
             meta={[
               {
                 name: `description`,
